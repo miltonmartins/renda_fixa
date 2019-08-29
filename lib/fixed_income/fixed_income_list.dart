@@ -3,7 +3,9 @@ import 'package:flutter/widgets.dart';
 import 'package:renda_fixa/fixed_income/fixed_income.dart';
 import 'package:renda_fixa/fixed_income/fixed_income_bloc.dart';
 
-class FixerIncomeList extends StatelessWidget {
+import 'fixed_income_item.dart';
+
+class FixedIncomeList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -12,7 +14,17 @@ class FixerIncomeList extends StatelessWidget {
         future: FixedIncomeBLoc().getFixedIncomeListFromJSON(),
         initialData: new List<FixedIncome>(),
         builder: (BuildContext context, snapshot) {
-          return Container();
+          if (snapshot.hasData) {
+            return ListView.builder(
+                itemCount: snapshot.data.length,
+                itemBuilder: (BuildContext context, index) => FixedIncomeItem(
+                      fixedIncome: snapshot.data[index],
+                    ));
+          } else if (snapshot.hasError) {
+            return Text('${snapshot.error}');
+          }
+
+          return CircularProgressIndicator();
         },
       ),
     );

@@ -21,10 +21,12 @@ class FixedIncomeBLoc {
 
     if (response.statusCode == 200) {
       var jsonResponse = convert.jsonDecode(response.body);
-      print(jsonResponse);
+      var fixedIncomeListJson = jsonResponse['fundos_arr'];
+
+      return List<FixedIncome>.from(
+          fixedIncomeListJson.map((item) => FixedIncome.fromJson(item)));
     } else {
       throw ("Request failed with status: ${response.statusCode}.");
     }
-    return new List<FixedIncome>();
   }
 }
