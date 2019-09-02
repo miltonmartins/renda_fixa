@@ -1,0 +1,1 @@
+enum FixedIncomeProfile { moderate, aggressive }

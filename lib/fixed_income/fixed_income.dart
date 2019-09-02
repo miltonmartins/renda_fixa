@@ -1,8 +1,10 @@
+import 'package:renda_fixa/fixed_income/fixed_income_profile.dart';
+
 class FixedIncome {
   String name;
   String cnpj;
   int minApplication;
-  String profile;
+  FixedIncomeProfile profile;
   String score;
   String manager;
   String liquidity;
@@ -28,7 +30,9 @@ class FixedIncome {
         minApplication: json['aplicacao_minima'],
         manager: json['gestor'],
         liquidity: json['liquidez'],
-        profile: json['perfil'],
+        profile: json['perfil'].contains('moderado')
+            ? FixedIncomeProfile.moderate
+            : FixedIncomeProfile.aggressive,
         score: json['score'],
         profitability: json['rentabilidade']);
   }
